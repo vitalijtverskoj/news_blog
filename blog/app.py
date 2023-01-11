@@ -3,6 +3,10 @@ from time import time
 from flask import Flask, g
 from flask import request
 
+from blog.article.views import article
+from blog.user.views import user
+
+
 # app = Flask(__name__)
 #
 #
@@ -65,4 +69,10 @@ from flask import request
 
 def create_app() -> Flask:
     app = Flask(__name__)
+    register_blueprints(app)
     return app
+
+
+def register_blueprints(app: Flask):
+    app.register_blueprint(user)
+    app.register_blueprint(article)
