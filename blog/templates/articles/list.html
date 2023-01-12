@@ -7,10 +7,10 @@
 {% block body %}
     <div class="row">
         <div class="col">
-            <h1>Reports:</h1>
-            {% for report in reports %}
+            <h1>Articles:</h1>
+            {% for i in articles %}
                 <ul>
-                    <li>{{ report }}</li>
+                    <li><a href="{{ url_for('article.details', pk=i) }}">{{ articles[i]['title'] }}</a></li>
                 </ul>
             {% endfor %}
         </div>

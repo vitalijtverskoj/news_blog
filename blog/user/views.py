@@ -10,7 +10,7 @@ USERS = {
 }
 
 
-@user.route('/')
+@user.route('/', endpoint="list")
 def user_list():
     return render_template(
         'users/list.html',
@@ -18,7 +18,7 @@ def user_list():
     )
 
 
-@user.route('/<int:pk>')
+@user.route('/<int:pk>', endpoint="details")
 def get_user(pk: int):
     try:
         user_name = USERS[pk]
@@ -28,4 +28,5 @@ def get_user(pk: int):
     return render_template(
         'users/details.html',
         user_name=user_name,
+        pk=pk,
     )
