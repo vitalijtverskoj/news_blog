@@ -1,13 +1,26 @@
-from flask import Flask
+from time import time
 
-app = Flask(__name__)
+from flask import Flask, g, render_template
+from flask import request
+
+from blog.article.views import article
+from blog.user.views import user
 
 
-@app.route('/')
-def index():
-    return 'Hello!'
+index = Flask(__name__)
 
 
-@app.route('/greet/<name>/')
-def greet_name(name: str):
-    return f'Hello {name}!'
+@index.route('/')
+def hello():
+    return render_template('index.html')
+
+
+def create_app() -> Flask:
+    app = Flask(__name__)
+    register_blueprints(app)
+    return app
+
+
+def register_blueprints(app: Flask):
+    app.register_blueprint(user)
+    app.register_blueprint(article)
