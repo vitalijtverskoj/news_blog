@@ -10,6 +10,8 @@ packages = [{include = "news_blog"}]
 python = "3.10.7"
 flask = "2.2.2"
 flask-sqlalchemy = "3.0.2"
+python-dotenv = "0.21.0"
+flask-login = "0.6.2"
 
 
 [build-system]
