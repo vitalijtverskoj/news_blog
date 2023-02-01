@@ -4,7 +4,7 @@ version = "0.1.0"
 description = ""
 authors = ["vitalijtverskoj <vitalijtverskoj@gmail.com>"]
 readme = "README.md"
-packages = [{include = "news_blog"}]
+#packages = [{include = "news_blog"}]
 
 [tool.poetry.dependencies]
 python = "^3.8"
