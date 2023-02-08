@@ -21,12 +21,15 @@ def create_init_user():
 
     with app.app_context():
         db.session.add(
-            User(email='Alice@example.com', password=generate_password_hash('test123'))
+            User(email='Admin@example.com',name='Admin' , password=generate_password_hash('test123'), is_staff=True)
         )
         db.session.add(
-            User(email='Jon@example.com', password=generate_password_hash('test123'))
+            User(email='Alice@example.com',name='Alice' , password=generate_password_hash('test123'))
         )
         db.session.add(
-            User(email='Mike@example.com', password=generate_password_hash('test123'))
+            User(email='Jon@example.com',name='Jon' , password=generate_password_hash('test123'))
+        )
+        db.session.add(
+            User(email='Mike@example.com',name='Mike' , password=generate_password_hash('test123'))
         )
         db.session.commit()
