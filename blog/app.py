@@ -1,5 +1,4 @@
-from flask import Flask, g, render_template
-from flask import request
+from flask import Flask, render_template
 
 from blog.article.views import article
 from blog.user.views import user
