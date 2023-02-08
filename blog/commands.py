@@ -24,12 +24,12 @@ def create_init_user():
             User(email='Admin@example.com',name='Admin' , password=generate_password_hash('test123'), is_staff=True)
         )
         db.session.add(
-            User(email='Alice@example.com',name='Alice' , password=generate_password_hash('test123'))
+            User(email='Alice@example.com',name='Alice' , password=generate_password_hash('test123'), is_staff=False)
         )
         db.session.add(
-            User(email='Jon@example.com',name='Jon' , password=generate_password_hash('test123'))
+            User(email='Jon@example.com',name='Jon' , password=generate_password_hash('test123'), is_staff=False)
         )
         db.session.add(
-            User(email='Mike@example.com',name='Mike' , password=generate_password_hash('test123'))
+            User(email='Mike@example.com',name='Mike' , password=generate_password_hash('test123'), is_staff=False)
         )
         db.session.commit()

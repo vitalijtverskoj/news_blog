@@ -13,9 +13,11 @@ class User(db.Model, UserMixin):
     password = db.Column(db.String(255))
     is_staff = db.Column(db.Boolean, default=False)
 
-    def __init__(self, email, password):
+    def __init__(self, email, name, password, is_staff):
         self.email = email
         self.password = password
+        self.name = name
+        self.is_staff = is_staff
 
 
 # class Article(db.Model):
