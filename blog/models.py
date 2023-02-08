@@ -11,6 +11,7 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(255), unique=True)
     name = db.Column(db.String(255))
     password = db.Column(db.String(255))
+    is_staff = db.Column(db.Boolean, default=False)
 
     def __init__(self, email, password):
         self.email = email
