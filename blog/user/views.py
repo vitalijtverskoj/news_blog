@@ -27,6 +27,7 @@ def register():
             first_name=form.first_name.data,
             last_name=form.last_name.data,
             password=generate_password_hash(form.password.data),
+            is_staff=False,
         )
 
         db.session.add(_user)
@@ -43,7 +44,6 @@ def register():
 
 @user.route('/', endpoint="list")
 def user_list():
-
     users = User.query.all()
     return render_template(
         'users/list.html',
@@ -54,7 +54,7 @@ def user_list():
 @user.route('/<int:pk>', endpoint="profile")
 @login_required
 def profile(pk: int):
-    selected_user = User.query.filter_by(id=pk).one_or_none()
+    selected_user: User = User.query.filter_by(id=pk).one_or_none()
     if not selected_user:
         raise NotFound(f"User #{pk} doesn't exist!")
     return render_template(
