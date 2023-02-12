@@ -1,6 +1,5 @@
 from flask import Blueprint, render_template, redirect, url_for, request, flash
 from flask_login import current_user, login_user, login_required, logout_user
-from werkzeug.security import check_password_hash
 
 from blog.forms.auth import AuthForm
 from blog.models import User
