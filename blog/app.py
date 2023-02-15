@@ -1,12 +1,11 @@
-from flask import Flask, g, render_template
-from flask import request
+from flask import Flask, render_template
 
 from blog.article.views import article
 from blog.user.views import user
 from blog.auth.views import auth
 
 from blog import commands
-from blog.extensions import db, login_manager
+from blog.extensions import db, login_manager, migrate
 
 from blog.models import User
 
@@ -30,6 +29,7 @@ def create_app() -> Flask:
 
 def register_extensions(app):
     db.init_app(app)
+    migrate.init_app(app, db, compare_type=True)
 
     login_manager.login_view = 'auth.login'
     login_manager.init_app(app)
