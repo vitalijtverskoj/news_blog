@@ -1,4 +1,7 @@
+from datetime import datetime
+
 from flask_login import UserMixin
+from sqlalchemy import ForeignKey
 from sqlalchemy.orm import relationship
 from werkzeug.security import check_password_hash
 
@@ -15,6 +18,8 @@ class User(db.Model, UserMixin):
     password = db.Column(db.String(255))
     is_staff = db.Column(db.Boolean, default=False)
 
+    author = relationship('Author', uselist=False, back_populates='user')
+
     def __init__(self, email, first_name, last_name, password, is_staff):
         self.email = email
         self.password = password
@@ -22,12 +27,27 @@ class User(db.Model, UserMixin):
         self.last_name = last_name
         self.is_staff = is_staff
 
-    def check_password_hash(self, password: str) -> bool:
+    def check_password(self, password: str) -> bool:
         return check_password_hash(self.password, password)
 
-# class Article(db.Model):
-#     __tablename__ = 'articles'
-#
-#     title = db.Column(db.String(255))
-#     text = db.Column(db.String)
-#     author = relationship('User')
+class Author(db.Model):
+    __tablename__ = 'authors'
+
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, ForeignKey('users.id'), nullable=False)
+
+    user = relationship('User', back_populates='author')
+    articles = relationship('Article', back_populates='author')
+
+
+class Article(db.Model):
+    __tablename__ = 'articles'
+
+    id = db.Column(db.Integer, primary_key=True)
+    author_id = db.Column(db.Integer, ForeignKey('authors.id'), nullable=False)
+    title = db.Column(db.String(255))
+    text = db.Column(db.Text)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+
+    author = relationship('Author', back_populates='articles')

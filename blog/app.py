@@ -3,6 +3,7 @@ from flask import Flask, render_template
 from blog.article.views import article
 from blog.user.views import user
 from blog.auth.views import auth
+from blog.author.views import author
 
 from blog import commands
 from blog.extensions import db, login_manager, migrate, csrf
@@ -49,3 +50,4 @@ def register_blueprints(app: Flask):
     app.register_blueprint(user)
     app.register_blueprint(article)
     app.register_blueprint(auth)
+    app.register_blueprint(author)

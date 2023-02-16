@@ -24,7 +24,7 @@ def login_post():
     if request.method == 'POST' and form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
 
-        if not user or not user.check_password_hash(form.password.data):
+        if not user or not user.check_password(form.password.data):
             flash("Email or password doesn't exist")
             return redirect(url_for('.login'))
 
