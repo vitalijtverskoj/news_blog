@@ -43,6 +43,7 @@ def register_extensions(app):
 
 def register_commands(app: Flask):
     app.cli.add_command(commands.create_admin)
+    app.cli.add_command(commands.create_init_tags)
 
 
 def register_blueprints(app: Flask):

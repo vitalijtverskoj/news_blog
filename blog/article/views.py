@@ -1,5 +1,6 @@
 from flask import Blueprint, render_template, request, redirect, url_for
 from flask_login import login_required, current_user
+from sqlalchemy.orm import joinedload
 from werkzeug.exceptions import NotFound
 
 from blog.extensions import db
@@ -20,7 +21,9 @@ def article_list():
 
 @article.route('/<int:article_id>/', methods=['GET'])
 def article_detail(article_id):
-    _article: Article = Article.query.filter_by(id=article_id).one_or_none()
+    _article: Article = Article.query.filter_by(id=article_id).options(
+        joinedload(Article.tags)
+    ).one_or_none()
     if _article is None:
         raise NotFound
     return render_template(
