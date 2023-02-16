@@ -66,3 +66,14 @@ def create_article():
         return redirect(url_for('article.article_detail', article_id=_article.id))
 
     return render_template('articles/create.html', form=form)
+
+
+# @article.route('/tag/<str:tag_name>', methods=['GET'])
+# def article_list_by_tags(tag_name):
+#     tags: Tag = Tag.query.filter_by(Tag.name==tag_name)
+#     articles: Article = Tag.articles.all()
+#     return render_template(
+#         'articles/article_by_tags.html',
+#         articles=articles,
+#         tags=tags,
+#     )
