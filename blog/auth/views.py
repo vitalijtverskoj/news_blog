@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, redirect, url_for, request, flash
 from flask_login import current_user, login_user, login_required, logout_user
-from werkzeug.security import check_password_hash
 
+from blog.forms.auth import AuthForm
 from blog.models import User
 
 auth = Blueprint('auth', __name__, static_folder='../static')
@@ -13,21 +13,25 @@ def login():
         return redirect(url_for('user.profile', pk=current_user.id))
     return render_template(
         'auth/login.html',
+        form=AuthForm(request.form)
     )
 
 
 @auth.route('/login', methods=('POST',))
 def login_post():
-    email = request.form.get('email')
-    password = request.form.get('password')
+    form = AuthForm(request.form)
 
-    user = User.query.filter_by(email=email).first()
+    if request.method == 'POST' and form.validate_on_submit():
+        user = User.query.filter_by(email=form.email.data).first()
 
-    if not user or not check_password_hash(user.password, password):
-        flash('Check your login details')
-        return redirect(url_for('.login'))
-    login_user(user)
-    return redirect(url_for('user.profile', pk=user.id))
+        if not user or not user.check_password_hash(form.password.data):
+            flash("Email or password doesn't exist")
+            return redirect(url_for('.login'))
+
+        login_user(user)
+        return redirect(url_for('user.profile', pk=user.id))
+
+    return render_template('auth/login.html', form=form)
 
 
 @auth.route('/logout')
