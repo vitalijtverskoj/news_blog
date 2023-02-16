@@ -24,7 +24,8 @@
         </div>
         <div class="col-6">
             {% for tag in article.tags %}
-                <span class="badge bg-primary">{{ tag.name }}</span>
+                <a class="badge bg-primary" href="#" role="button">{{ tag.name }}</a>
+{#                <span class="badge bg-primary">{{ tag.name }}</span>#}
             {% endfor %}
         </div>
     </div>
