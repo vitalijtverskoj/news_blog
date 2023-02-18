@@ -11,7 +11,7 @@ def create_admin():
 
     with app.app_context():
         db.session.add(
-            User(email='Admin@example.com',first_name='Admin' , password=generate_password_hash('test123'), is_staff=True)
+            User(email='Admin@example.com', first_name='Admin' , last_name='Admin', password=generate_password_hash('test123'), is_staff=True)
         )
         db.session.commit()
 
